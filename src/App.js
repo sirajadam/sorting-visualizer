@@ -1,13 +1,13 @@
 import "./App.css";
 import React from "react";
 import Header from "./components/header/Header";
-import SortingApp from "./components/sorting/SortingApp";
+import SortingVisualizer from "./components/sorting/SortingVisualizer";
 
 function App() {
   return (
     <React.Fragment>
       <Header />
-      <SortingApp />
+      <SortingVisualizer />
     </React.Fragment>
   );
 }
