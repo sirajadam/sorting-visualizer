@@ -1,0 +1,31 @@
+.nav {
+  height: 7.5rem;
+  background: #16161a;
+  display: flex;
+  align-items: center;
+}
+
+.nav-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  /* background: blue; */
+  margin: 0 10rem;
+  align-items: center;
+  align-content: center;
+  gap: 0 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  font-family: inherit;
+  padding: 1rem;
+  border: 2px solid #2cb67d;
+  background: transparent;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  color: #fffffe;
+}
