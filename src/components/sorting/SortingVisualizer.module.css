@@ -1,6 +1,6 @@
 .sorting-app-container {
   display: flex;
-  background: #ddd;
+  /* background: green; */
   height: calc(100vh - 12rem);
   width: 80vw;
   margin: 0 auto;
@@ -19,6 +19,6 @@
   display: flex;
   align-items: flex-end;
   border-radius: 0.25rem;
-  width: 2.5rem;
-  margin: 0 7px;
+  width: 3rem;
+  margin: 0 1px;
 }

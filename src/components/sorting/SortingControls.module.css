@@ -72,3 +72,7 @@
 .btn:hover {
   opacity: 1;
 }
+
+.disabled {
+  background: black;
+}

@@ -1,4 +1,3 @@
-import { useState } from "react/cjs/react.development";
 import styles from "./SortingControls.module.css";
 
 const SortingControls = (props) => {
@@ -6,15 +5,20 @@ const SortingControls = (props) => {
     props.onInsertionSort();
   };
 
-  const onChangeHandler = (e) => {
-    props.onSetSize(e.target.value);
-    console.log(props.size);
+  const onChangeSizeHandler = (e) => {
+    props.onChangeSize(e.target.value);
   };
+  const onChangeSpeedHandler = (e) => {
+    props.onChangeSpeed(e.target.value);
+    console.log(props.speed);
+  };
+
+  const buttonClass = `${styles.btn} ${props.disabled ? "disabled" : ""}`;
 
   return (
     <section className={styles["sorting-controls-container"]}>
       <div className={styles["sorting-controls"]}>
-        <button onClick={props.onReset} className={styles.btn}>
+        <button onClick={props.onReset} className={buttonClass}>
           Generate
         </button>
         <div className={styles["size-ctrl"]}>
@@ -24,11 +28,22 @@ const SortingControls = (props) => {
             min="5"
             max="150"
             value={props.size}
-            onChange={onChangeHandler}
+            onChange={onChangeSizeHandler}
             className={styles.range}
           />
         </div>
-        <button className={styles.btn} onClick={callerHandler}>
+        <div className={styles["size-ctrl"]}>
+          <label>Speed</label>
+          <input
+            type="range"
+            min="30"
+            max="1000"
+            value={props.speed}
+            onChange={onChangeSpeedHandler}
+            className={styles.range}
+          />
+        </div>
+        <button className={buttonClass} onClick={callerHandler}>
           Insertion Sort
         </button>
         <button className={styles.btn} onClick={callerHandler}>
