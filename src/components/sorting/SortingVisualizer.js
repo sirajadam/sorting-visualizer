@@ -2,25 +2,25 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./SortingVisualizer.module.css";
 import { generateArray } from "../../utility/generateArray";
 import { getInsertionAnimation } from "../../algorithms/insertionSort";
+import { getBubbleAnimation } from "../../algorithms/bubbleSort";
 
 const SortingVisualizer = () => {
   const arrBarRef = useRef();
-  const [arrSize, setArrSize] = useState(5);
+  const [arrSize, setArrSize] = useState(75);
   const [arrSpeed, setArrSpeed] = useState(10);
   const [array, setArray] = useState([50, 40, 30, 20, 10]);
   const [isSorting, setIsSorting] = useState(false);
   const [isSorted, setIsSorted] = useState(false);
 
   const generateNewArray = () => {
-    console.log("IsSorting is currently: ", isSorting);
     if (isSorting) {
       console.log("ARRAY IS CURRENTLY SORTING");
       return;
     }
-    setArray(generateArray(150, arrSize));
-    // Resetting color of array
+    setArray(generateArray(149, arrSize));
+    // Resetting color of array -> refactor when time
     for (let i = 0; i < arrBarRef.current.children.length; i++) {
-      arrBarRef.current.children[i].style.background = "#0ea5e9";
+      arrBarRef.current.children[i].style.background = "#7e22ce";
     }
     setIsSorted(false);
   };
@@ -31,31 +31,42 @@ const SortingVisualizer = () => {
 
   // Sorting algorithms
   const insertionSort = () => {
-    if (isSorted) {
-      console.log("ARRAY IS SORTED");
-      return;
-    }
-    setIsSorting(true);
-    const animeStory = getInsertionAnimation(array);
-    highlightAnimation(animeStory);
-    setTimeout(() => {
-      setIsSorting(false);
-    }, animeStory.length * arrSpeed);
+    highlightAnimation(getInsertionAnimation(array));
   };
 
+  const bubbleSort = () => {
+    highlightAnimation(getBubbleAnimation(array));
+    return;
+  };
+
+  // End of Sorting algorithms
+
+  // Highlights arraybar at index idx
   const highlightElementComparison = (idx) => {
     const arrBars = arrBarRef.current.children;
 
-    arrBars[idx].style.background = "purple";
+    arrBars[idx].style.background = "#0ea5e9";
 
     setTimeout(() => {
-      arrBars[idx].style.background = "#0ea5e9";
+      arrBars[idx].style.background = "#7e22ce";
     }, arrSpeed);
   };
 
+  const highlightSuccess = () => {
+    const arrBars = arrBarRef.current.children;
+
+    for (let i = 0; i < arrBars.length; i++) {
+      setTimeout(() => {
+        arrBars[i].style.background = "#16A34A";
+      }, i * arrSpeed);
+    }
+  };
+
   const highlightAnimation = (arr) => {
-    if (isSorting) return;
+    // Check if already is sorting
+    if (isSorting || isSorted) return;
     setIsSorting(true);
+    // Looping through animation array arr
     for (let i = 0; i < arr.length; i++) {
       const [comparisonIndex, swappedValues, swap] = arr[i];
       setTimeout(() => {
@@ -71,8 +82,16 @@ const SortingVisualizer = () => {
           arrBarRef.current.children[idx2].style.height = `${val2 * 5}px`;
         }
       }, i * arrSpeed);
+      // Setting state in (arr.length * arrSpeed) ms since setTimeout is non-blocking
+      setTimeout(() => {
+        highlightSuccess();
+        setIsSorting(false);
+        setIsSorted(true);
+      }, arr.length * arrSpeed);
     }
   };
+
+  // Buttons Control
 
   const inputSliderSizeHandler = (e) => {
     setArrSize(e.target.value);
@@ -84,8 +103,6 @@ const SortingVisualizer = () => {
   const reloadHandler = () => {
     window.location.reload();
   };
-
-  const buttonClass = `${styles.btn} ${isSorting ? `${styles.disabled}` : ""}`;
 
   return (
     <React.Fragment>
@@ -111,7 +128,7 @@ const SortingVisualizer = () => {
           <button
             disabled={isSorting}
             onClick={generateNewArray}
-            className={buttonClass}
+            className={styles.btn}
           >
             Generate
           </button>
@@ -128,7 +145,7 @@ const SortingVisualizer = () => {
             />
           </div>
           <div className={styles["size-ctrl"]}>
-            <label>Speed</label>
+            <label>Speed (ms)</label>
             <input
               type="range"
               disabled={isSorting}
@@ -141,35 +158,35 @@ const SortingVisualizer = () => {
           </div>
           <button
             disabled={isSorting}
-            className={buttonClass}
+            className={styles.btn}
             onClick={insertionSort}
           >
             Insertion Sort
           </button>
           <button
             disabled={isSorting}
-            className={buttonClass}
-            onClick={insertionSort}
-          >
-            Selection Sort
-          </button>
-          <button
-            disabled={isSorting}
-            className={buttonClass}
-            onClick={insertionSort}
+            className={styles.btn}
+            onClick={bubbleSort}
           >
             Bubble Sort
           </button>
           <button
             disabled={isSorting}
-            className={buttonClass}
+            className={styles.btn}
+            onClick={bubbleSort}
+          >
+            Selection Sort
+          </button>
+          <button
+            disabled={isSorting}
+            className={styles.btn}
             onClick={insertionSort}
           >
             Merge Sort
           </button>
           <button
             disabled={isSorting}
-            className={buttonClass}
+            className={styles.btn}
             onClick={insertionSort}
           >
             Quick Sort

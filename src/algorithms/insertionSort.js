@@ -16,17 +16,13 @@ export const getInsertionAnimation = (arr) => {
           ],
           true,
         ]);
-        swap(copy, j, j - 1);
+        let temp = copy[j];
+        copy[j] = copy[j - 1];
+        copy[j - 1] = temp;
       } else {
         break;
       }
     }
   }
   return animeStory;
-};
-
-const swap = (arr, i, j) => {
-  let tmp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = tmp;
 };
