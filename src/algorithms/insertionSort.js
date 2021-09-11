@@ -30,7 +30,3 @@ const swap = (arr, i, j) => {
   arr[i] = arr[j];
   arr[j] = tmp;
 };
-
-let arr1 = [5, 4, 3, 2, 1];
-
-console.log(getInsertionAnimation(arr1));
