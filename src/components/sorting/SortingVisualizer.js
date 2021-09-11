@@ -3,6 +3,7 @@ import styles from "./SortingVisualizer.module.css";
 import { generateArray } from "../../utility/generateArray";
 import { getInsertionAnimation } from "../../algorithms/insertionSort";
 import { getBubbleAnimation } from "../../algorithms/bubbleSort";
+import { getSelectionAnimation } from "../../algorithms/selectoionSort";
 
 const SortingVisualizer = () => {
   const arrBarRef = useRef();
@@ -36,13 +37,15 @@ const SortingVisualizer = () => {
 
   const bubbleSort = () => {
     highlightAnimation(getBubbleAnimation(array));
-    return;
+  };
+  const selectionSort = () => {
+    highlightAnimation(getSelectionAnimation(array));
   };
 
   // End of Sorting algorithms
 
   // Highlights arraybar at index idx
-  const highlightElementComparison = (idx) => {
+  const highlightElementComparison = (idx, type) => {
     const arrBars = arrBarRef.current.children;
 
     arrBars[idx].style.background = "#0ea5e9";
@@ -173,7 +176,7 @@ const SortingVisualizer = () => {
           <button
             disabled={isSorting}
             className={styles.btn}
-            onClick={bubbleSort}
+            onClick={selectionSort}
           >
             Selection Sort
           </button>

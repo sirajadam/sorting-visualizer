@@ -17,10 +17,11 @@
 }
 
 .bar {
-  background: #0ea5e9;
   background: #7e22ce;
   display: flex;
   align-items: flex-end;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
   width: 3rem;
   margin: 0 1px;
 }
