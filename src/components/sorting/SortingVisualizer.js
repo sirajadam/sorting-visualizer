@@ -8,7 +8,7 @@ import { getSelectionAnimation } from "../../algorithms/selectoionSort";
 const SortingVisualizer = () => {
   const arrBarRef = useRef();
   const [arrSize, setArrSize] = useState(75);
-  const [arrSpeed, setArrSpeed] = useState(10);
+  const [arrSpeed, setArrSpeed] = useState(5);
   const [array, setArray] = useState([50, 40, 30, 20, 10]);
   const [isSorting, setIsSorting] = useState(false);
   const [isSorted, setIsSorted] = useState(false);
@@ -21,7 +21,7 @@ const SortingVisualizer = () => {
     setArray(generateArray(149, arrSize));
     // Resetting color of array -> refactor when time
     for (let i = 0; i < arrBarRef.current.children.length; i++) {
-      arrBarRef.current.children[i].style.background = "#7e22ce";
+      arrBarRef.current.children[i].style.background = "#0ea5e9";
     }
     setIsSorted(false);
   };
@@ -48,10 +48,10 @@ const SortingVisualizer = () => {
   const highlightElementComparison = (idx, type) => {
     const arrBars = arrBarRef.current.children;
 
-    arrBars[idx].style.background = "#0ea5e9";
+    arrBars[idx].style.background = "orange";
 
     setTimeout(() => {
-      arrBars[idx].style.background = "#7e22ce";
+      arrBars[idx].style.background = "#0ea5e9";
     }, arrSpeed);
   };
 
@@ -61,7 +61,7 @@ const SortingVisualizer = () => {
     for (let i = 0; i < arrBars.length; i++) {
       setTimeout(() => {
         arrBars[i].style.background = "#16A34A";
-      }, i * arrSpeed);
+      }, i * 3);
     }
   };
 
@@ -152,7 +152,7 @@ const SortingVisualizer = () => {
             <input
               type="range"
               disabled={isSorting}
-              min="10"
+              min="5"
               max="1000"
               value={arrSpeed}
               onChange={inputSliderSpeedHandler}
