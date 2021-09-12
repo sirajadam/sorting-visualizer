@@ -117,12 +117,14 @@
 }
 
 .reload {
-  transition: all 3s ease;
-  font-size: 1.75rem;
   align-items: center;
   /* padding-right: 10rem; */
-  color: #7e22ce;
-  transform: translateX(-5rem);
+  color: #22c55e;
+  transform: scale(1.4) translateX(-2.5rem);
 
   cursor: pointer;
+}
+
+.reload > .MuiSvgIcon-root {
+  font-size: 3rem;
 }

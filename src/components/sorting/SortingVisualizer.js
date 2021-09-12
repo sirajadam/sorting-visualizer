@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./SortingVisualizer.module.css";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import { generateArray } from "../../utility/generateArray";
 import { getInsertionAnimation } from "../../algorithms/insertionSort";
 import { getBubbleAnimation } from "../../algorithms/bubbleSort";
@@ -61,7 +62,7 @@ const SortingVisualizer = () => {
     for (let i = 0; i < arrBars.length; i++) {
       setTimeout(() => {
         arrBars[i].style.background = "#16A34A";
-      }, i * 3);
+      }, (i + 1) * arrSpeed);
     }
   };
 
@@ -122,7 +123,7 @@ const SortingVisualizer = () => {
         <div className={styles["sorting-controls"]}>
           {isSorting ? (
             <div className={styles.reload} onClick={reloadHandler}>
-              <i class="fi-rr-rotate-right"></i>
+              <RefreshIcon />
             </div>
           ) : (
             ""
