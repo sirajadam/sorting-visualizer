@@ -6,7 +6,7 @@ export const getSelectionAnimation = (arr) => {
   for (let i = 0; i < n; i++) {
     let minIdx = i;
 
-    for (let j = i; j < n; j++) {
+    for (let j = i + 1; j < n; j++) {
       animeStory.push([[i, j], null, false]);
 
       if (copy[minIdx] > copy[j]) {
@@ -28,7 +28,3 @@ export const getSelectionAnimation = (arr) => {
 
   return animeStory;
 };
-
-const test = [4, 5, 7, 1, 3, 6, 9];
-
-console.log(getSelectionAnimation(test));

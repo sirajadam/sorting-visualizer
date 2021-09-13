@@ -40,20 +40,28 @@ const SortingVisualizer = () => {
     highlightAnimation(getBubbleAnimation(array));
   };
   const selectionSort = () => {
-    highlightAnimation(getSelectionAnimation(array));
+    highlightAnimation(getSelectionAnimation(array), true);
   };
 
   // End of Sorting algorithms
 
   // Highlights arraybar at index idx
-  const highlightElementComparison = (idx, type) => {
+  const highlightElementComparison = (idx, selectionSort = false) => {
     const arrBars = arrBarRef.current.children;
 
-    arrBars[idx].style.background = "orange";
+    selectionSort
+      ? (arrBars[idx].style.background = "orangered")
+      : (arrBars[idx].style.background = "orange");
 
-    setTimeout(() => {
-      arrBars[idx].style.background = "#0ea5e9";
-    }, arrSpeed);
+    if (!selectionSort) {
+      setTimeout(() => {
+        removeHighlight(idx);
+      }, arrSpeed);
+    }
+  };
+
+  const removeHighlight = (idx) => {
+    arrBarRef.current.children[idx].style.background = "#0ea5e9";
   };
 
   const highlightSuccess = () => {
@@ -66,7 +74,7 @@ const SortingVisualizer = () => {
     }
   };
 
-  const highlightAnimation = (arr) => {
+  const highlightAnimation = (arr, specielCase) => {
     // Check if already is sorting
     if (isSorting || isSorted) return;
     setIsSorting(true);
@@ -76,14 +84,15 @@ const SortingVisualizer = () => {
       setTimeout(() => {
         if (!swap) {
           const [i, j] = comparisonIndex;
-          highlightElementComparison(i);
+          highlightElementComparison(i, specielCase);
           highlightElementComparison(j);
         } else {
           const [idx1, val1] = swappedValues[0];
           const [idx2, val2] = swappedValues[1];
           arrBarRef.current.children[idx1].style.height = `${val1 * 5}px`;
-
           arrBarRef.current.children[idx2].style.height = `${val2 * 5}px`;
+          removeHighlight(idx1);
+          removeHighlight(idx2);
         }
       }, i * arrSpeed);
       // Setting state in (arr.length * arrSpeed) ms since setTimeout is non-blocking
@@ -181,7 +190,10 @@ const SortingVisualizer = () => {
           >
             Selection Sort
           </button>
-          <button
+          <p style={{ "font-size": "1.25rem", color: "white" }}>
+            Merge Sort coming soon!!
+          </p>
+          {/* <button
             disabled={isSorting}
             className={styles.btn}
             onClick={insertionSort}
@@ -194,7 +206,7 @@ const SortingVisualizer = () => {
             onClick={insertionSort}
           >
             Quick Sort
-          </button>
+          </button> */}
         </div>
       </section>
     </React.Fragment>
